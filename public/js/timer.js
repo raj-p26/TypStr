@@ -1,11 +1,32 @@
 let seconds = 0;
 let minutes = 0;
-let stopped = false;
+// let stopped = false;
+
+import { IGNORE_KEYS } from "./getWords.js";
 
 /** @type {number} */
 let intervalID;
 
-function setStopwatch() {
+// const IGNORE_KEYS = [
+//     "Home",
+//     "Backspace",
+//     "End",
+//     "Alt",
+//     "PageUp",
+//     "PageDown",
+//     "AltGraph",
+//     "ArrowUp",
+//     "ArrowDown",
+//     "ArrowLeft",
+//     "ArrowRight",
+//     "Control",
+//     "Delete",
+//     "Insert",
+//     "Escape",
+//     "Tab",
+// ];
+
+function stopwatch() {
     if (seconds === 60) {
         minutes++;
         seconds = 0;
@@ -14,24 +35,31 @@ function setStopwatch() {
     stringifyTimer();
 }
 
-$("#timer").on("click", async () => {
-    stringifyTimer();
-    intervalID = setInterval(setStopwatch, 1000);
-});
+$("#key-input")
+    .on("keydown", (e) => {
+        if (IGNORE_KEYS.includes(e.key)) return;
 
-$("#stop-timer").on("click", async () => {
-    if (!stopped) {
-        clearInterval(intervalID);
-        stopped = true;
-    } else alert("Already Stopped");
-});
+        if (!intervalID) {
+            intervalID = setInterval(stopwatch, 1000);
+        }
 
-$("#reset-timer").on("click", async () => {
-    seconds = 0;
-    minutes = 0;
-    if (!intervalID) alert("Timer is not started yet");
-    else stringifyTimer();
-});
+        if (intervalID && e.key === "Enter") {
+            seconds = 0;
+            minutes = 0;
+            clearInterval(intervalID);
+            intervalID = null;
+        }
+
+        stringifyTimer();
+    })
+    .on("blur", () => {
+        if (intervalID) {
+            seconds = 0;
+            minutes = 0;
+            clearInterval(intervalID);
+            intervalID = null;
+        }
+    });
 
 function stringifyTimer() {
     let secondsStr = seconds < 10 ? `0${seconds}` : seconds;

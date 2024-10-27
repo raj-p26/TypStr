@@ -3,17 +3,17 @@
 @section('title', 'Home')
 
 @section('content')
-<div class="form-control">
-    <label for="n-words">Number of words:</label>
-    <input type="number" min="0" max="100" id="n-words" />
-</div>
-<button id="get-words" class="btn btn-primary shadow">Generate Text</button>
-<div id="target-div"></div>
 
-<div class="mt-5">
-    <button class="btn btn-primary" id="timer">Start Timer</button>
-    <button class="btn btn-primary" id="reset-timer">Reset Timer</button>
-    <button class="btn btn-primary" id="stop-timer">Stop Timer</button><br />
-    <h1 id="timer-target"></h1>
+<div class="d-flex align-items-center my-4">
+    <label for="n-words" class="form-label">Number of words:</label>
+    <input type="number" class="form-control w-50 mx-2" min="0" max="100" value="30" id="n-words" />
+    <button id="get-words" class="btn btn-primary shadow">Generate Text</button>
+</div>
+
+<h1 id="timer-target" class="text-center">00:00</h1>
+<h5 id="target-div" class="mb-4"></h5>
+<textarea id="key-input" class="form-control" style="font-size: 1.25rem !important;" spellcheck="false" autocomplete="off" rows="10"></textarea>
+<div>
+    <span id="results"></span>
 </div>
 @endsection
