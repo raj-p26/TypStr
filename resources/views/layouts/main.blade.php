@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
-<body>
+<body data-bs-theme="{{ session('theme') ?? 'dark' }}">
     <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">TypStr</a>
@@ -25,9 +25,26 @@
                         <a class="nav-link" href="/settings">Settings</a>
                     </li>
                 </ul>
+                <div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item me-2">
+                            <button class="btn btn-outline-success">Login</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-outline-success">Signup</button>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </nav>
+    @if (session('alert_type'))
+    <div class="alert alert-{{ session('alert_type') }} alert-dismissible fade show" role="alert">
+        {{ session('message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
     <div class="container">
         @yield('content')
     </div>
