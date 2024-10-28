@@ -5,6 +5,7 @@
 @section('content')
 
 <div class="d-flex align-items-center justify-content-between my-4">
+    <input type="hidden" value="{{ session('custom_text') }}" id="custom-text" />
     {{-- use `session('max_words') or 30` for laravel 5.4 --}}
     <input type="hidden" class="form-control w-50 mx-2" min="0" max="100" value="{{ session('max_words') ?? 30 }}" id="n-words" />
     <button id="get-words" class="btn btn-primary shadow">Random Words</button>
