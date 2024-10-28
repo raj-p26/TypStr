@@ -44,7 +44,7 @@ $("#get-words").on("click", async (e) => {
     $("#word-counter").text(`${wordsTyped}/${numOfWords}`);
 
     if (!numOfWords || numOfWords <= 0) {
-        alert("Huh! insert a number, nigga");
+        alert("Huh! insert a number!");
         return;
     }
     $(e.target).attr("disabled", "disabled");
@@ -57,8 +57,7 @@ $("#get-words").on("click", async (e) => {
     const words = await resp.json();
     sentence = words.join(" ").split("");
     sentenceLen = sentence.length;
-    correct = pos = 0;
-
+    correct = pos = mistakes = wordsTyped = 0;
     targetDiv.text(words.join(" "));
 
     $("#key-input").removeAttr("readonly");
@@ -94,11 +93,17 @@ $("#key-input").on("keydown", ({ key, target }) => {
         const wpm = Math.round(typed / totalMinutes);
 
         $("#results").html(`
-            <h4>Accuracy: ${accuracy}%</h4>
+            <h4 class="mt-5">Accuracy: ${accuracy}%</h4>
             <h4>WPM: ${wpm}</h4>
             <h4>Mistakes: ${mistakes}</h4>
         `);
 
         $(target).trigger("blur");
+        $("html, body").animate(
+            {
+                scrollTop: $("#results").offset().top,
+            },
+            2000
+        );
     }
 });

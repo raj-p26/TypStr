@@ -7,5 +7,7 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/settings', fn() => view('settings'));
-Route::put('/settings', [DashboardController::class, 'settings']);
+Route::get("/settings", fn() => view('settings'));
+Route::put("/settings", [DashboardController::class, 'settings']);
+Route::post("/login", [DashboardController::class, 'login']);
+Route::post("/register", [DashboardController::class, 'register']);

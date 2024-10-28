@@ -1,3 +1,7 @@
-.container {
-    position: relative;
+.wrong {
+    color: #dc3545;
+}
+
+.right {
+    color: #198754;
 }
