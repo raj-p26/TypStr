@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Record;
 use Illuminate\Http\Request;
 use \App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -77,6 +78,13 @@ class DashboardController extends Controller
 
     function leaderboard()
     {
-        return view('leaderboard');
+        $records = DB::table("records")
+            ->groupBy("user_id")
+            ->join('users', 'records.user_id', "=", "users.id")
+            ->selectRaw("users.username, MIN(mistakes) as mistakes, MAX(wpm) as wpm, MAX(num_of_words) as num_of_words")
+            ->orderBy('wpm', 'desc')
+            ->get();
+
+        return view('leaderboard')->with(compact('records'));
     }
 }

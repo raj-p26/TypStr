@@ -7,7 +7,7 @@
 @if (count($data) === 0)
 <h1>No Records by You, Yet!</h1>
 @else
-<table class="table">
+<table class="table table-striped table-hover">
     <thead>
         <tr>
             <th>Record Using</th>
